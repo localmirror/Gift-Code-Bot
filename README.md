@@ -25,8 +25,8 @@ This is a fully-featured Telegram bot that includes functionalities like force s
 Clone the repository to your local machine:
 
 ```bash
-git clone https://github.com/yourusername/telegram-bot.git
-cd telegram-bot
+git clone https://github.com/localmirror/Gift-Code-Bot
+cd Gift-Code-Bot
 ```
 
 ### Step 2: Install Dependencies
