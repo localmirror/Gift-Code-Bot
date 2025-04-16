@@ -35,9 +35,9 @@ docker run telegram-bot
 
 ### 🌐 Cloudflare Workers
 
-Use `worker.js` style if converting to JS frontend (not included in this zip).
+Use `worker.js` style if converting to JS frontend (not included here).
 
 ---
 ## Credits
 
-Created with ❤️ by ChatGPT
+Created by Kenta
