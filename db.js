@@ -1,20 +1,29 @@
-export const database = {
-  getUser: async (id) => {
-    const res = await fetch(`https://database.deta.sh/v1/YOUR_PROJECT/users/items/${id}`);
-    return res.ok ? await res.json() : null;
+const BASE_URL = "https://database.deta.sh/v1/YOUR_PROJECT_ID/bot-db";
+const DB_KEY = "YOUR_DETA_PROJECT_KEY";
+
+async function dbFetch(path, method = "GET", body = null) {
+  const res = await fetch(`${BASE_URL}/${path}`, {
+    method,
+    headers: {
+      "Content-Type": "application/json",
+      "X-API-Key": DB_KEY
+    },
+    body: body ? JSON.stringify(body) : null,
+  });
+  return res.json();
+}
+
+export const db = {
+  async get(key) {
+    const res = await dbFetch(`items?query={"key":"${key}"}`);
+    return res.items?.[0] || null;
   },
-  saveUser: async (user) => {
-    return await fetch(`https://database.deta.sh/v1/YOUR_PROJECT/users/items`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ item: user })
+  async set(key, value) {
+    return await dbFetch("items", "POST", {
+      items: [{ key, ...value }]
     });
   },
-  updateUser: async (id, data) => {
-    return await fetch(`https://database.deta.sh/v1/YOUR_PROJECT/users/items/${id}`, {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ set: data })
-    });
+  async delete(key) {
+    return await dbFetch("items", "DELETE", { keys: [key] });
   }
 };
